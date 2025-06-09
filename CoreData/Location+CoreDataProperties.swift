@@ -77,6 +77,14 @@ extension Location : Identifiable {
     
     class func readAll(_ context:NSManagedObjectContext) -> [Location]? {
         let request = Location.request()
+        request.sortDescriptors = [
+            NSSortDescriptor(key: "city",
+                             ascending: true,
+                             selector:
+                                #selector(NSString.localizedStandardCompare)
+                            )
+        ]
+        
         do {
             guard let results = try context.fetch(request) as? [Location],
                   results.count > 0 else { return nil }

@@ -5,9 +5,11 @@ struct MainView: View {
     //@Environment(\.managedObjectContext) private var viewContext
     
     @StateObject var model = Model()
+    @StateObject var locationViewModel = LocationViewModel()
+    @StateObject var dishViewModel = DishViewModel()
+    
     @State var tabSelection = 0
     @State var previousTabSelection = -1 // any invalid value
-    
     
     var body: some View {
         TabView (selection: $model.tabViewSelectedIndex){
@@ -21,6 +23,7 @@ struct MainView: View {
                 .onAppear() {
                     tabSelection = 0
                 }
+                .environmentObject(locationViewModel)
             
             DishesView()
                 .tag(1)
@@ -32,6 +35,7 @@ struct MainView: View {
                 .onAppear() {
                     tabSelection = 1
                 }
+                .environmentObject(dishViewModel)
 //                .environmentObject(viewContext)
 
             
@@ -46,8 +50,9 @@ struct MainView: View {
                     tabSelection = 2
                 }
         }
-        .id(tabSelection)
+        //.id(tabSelection)
         .environmentObject(model)
+        
         
     }
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct LocationStruct:Hashable, Codable {
+public struct LocationStruct: Hashable, Codable {
     public let city:String
     public let neighborhood:String
     public let phoneNumber:String

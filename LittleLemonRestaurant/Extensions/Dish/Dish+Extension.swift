@@ -9,7 +9,7 @@ import CoreData
 
 extension Dish {
     
-    static func createDishesFrom(menuItems:[MenuItem],
+    static func createDishesFrom(menuItems:[MenuItemStruct],
                                  _ context:NSManagedObjectContext) {
         for menuItem in menuItems {
             guard let _ = exists(name: menuItem.title, context) else {

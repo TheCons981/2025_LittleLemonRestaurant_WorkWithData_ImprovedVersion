@@ -7,14 +7,15 @@ import SwiftUI
 
 
 struct DishDetailView: View {
-    @ObservedObject private var dish:Dish
-    init(_ dish:Dish) {
+    private var dish:MenuItemStruct
+    
+    init(_ dish:MenuItemStruct) {
         self.dish = dish
     }
     
     var body: some View {        
         HStack{
-            Text(dish.name ?? "")
+            Text(dish.title)
                 .padding([.top, .bottom], 7)
 
             Spacer()
@@ -28,16 +29,17 @@ struct DishDetailView: View {
 }
 
 struct DishDetailView_Previews: PreviewProvider {
-    static let context = PersistenceController.shared.container.viewContext
-    let dish = Dish(context: context)
+    //static let context = PersistenceController.shared.container.viewContext
+    //let dish = Dish(context: context)
     static var previews: some View {
         DishDetailView(oneDish())
     }
-    static func oneDish() -> Dish {
-        let dish = Dish(context: context)
-        dish.name = "Hummus"
-        dish.price = 10
-        dish.size = "Extra Large"
+    static func oneDish() -> MenuItemStruct {
+        //let dish = Dish(context: context)
+        let dish = MenuItemStruct(id: 1, title: "Hummus", price: "10", size: "Extra Large");
+        //dish.title = "Hummus"
+        //dish.price = "10"
+        //dish.size = "Extra Large"
         return dish
     }
 }

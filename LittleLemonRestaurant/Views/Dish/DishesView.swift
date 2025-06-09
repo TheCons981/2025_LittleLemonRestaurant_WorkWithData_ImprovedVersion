@@ -4,10 +4,9 @@ import CoreData
 struct DishesView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
-    @ObservedObject var dishesModel = DishModel()
+    @EnvironmentObject var dishViewModel: DishViewModel
     @State private var showAlert = false
-    @State var searchText = ""
-    
+    //@State var searchText = ""
     
     var body: some View {
         VStack {
@@ -24,21 +23,36 @@ struct DishesView: View {
             
             
             NavigationView {
-                FetchedObjects(
-                    predicate:buildPredicate(),
-                    sortDescriptors: buildSortDescriptors()) {
-                        (dishes: [Dish]) in
-                        List {
-                            ForEach(dishes, id:\.self) { dish in
-                                DishDetailView(dish)
-                                    .onTapGesture {
-                                        showAlert.toggle()
-                                    }
+                List {
+                    ForEach(dishViewModel.filteredMenuItems, id:\.id) { dish in
+                        DishDetailView(dish)
+                            .onTapGesture {
+                                showAlert.toggle()
                             }
-                        }
-                        .searchable(text: $searchText,
-                                    prompt: "search...")
+                            .id(dish.id)
                     }
+                }
+                .scrollPosition(id: $dishViewModel.scrollPosition)
+                .searchable(text: $dishViewModel.searchText,prompt: "search...")
+                .refreshable {
+                    await dishViewModel.getDishes(viewContext)
+                }
+                .background(NavigationBarNoCollapse())
+                /*FetchedObjects(
+                 predicate:buildPredicate(),
+                 sortDescriptors: buildSortDescriptors()) {
+                 (dishes: [Dish]) in
+                 List {
+                 ForEach(dishes, id:\.self) { dish in
+                 DishDetailView(dish)
+                 .onTapGesture {
+                 showAlert.toggle()
+                 }
+                 }
+                 }
+                 .searchable(text: $searchText,
+                 prompt: "search...")
+                 }*/
             }
             
             // SwiftUI has this space between the title and the list
@@ -46,7 +60,7 @@ struct DishesView: View {
             // into complex steps that run out of the scope of this
             // course, so, this is a hack, to bring the list up
             // try to comment this line and see what happens.
-            .padding(.top, -10)//
+            //.padding(.top, -10)//
             
             .alert("Order placed, thanks!",
                    isPresented: $showAlert) {
@@ -58,24 +72,25 @@ struct DishesView: View {
             
             // runs when the view appears
                    .task {
-                       await dishesModel.reload(viewContext)
+                       await dishViewModel.fetchMenuItems(viewContext)
                    }
+            
             
         }
     }
     
-    private func buildPredicate() -> NSPredicate {
-        return searchText == "" ?
-        NSPredicate(value: true) :
-        NSPredicate(format: "name CONTAINS[cd] %@", searchText)
-    }
-    
-    private func buildSortDescriptors() -> [NSSortDescriptor] {
-        [NSSortDescriptor(key: "name",
-                          ascending: true,
-                          selector:
-                            #selector(NSString.localizedStandardCompare))]
-    }
+    /*private func buildPredicate() -> NSPredicate {
+     return searchText == "" ?
+     NSPredicate(value: true) :
+     NSPredicate(format: "name CONTAINS[cd] %@", searchText)
+     }
+     
+     private func buildSortDescriptors() -> [NSSortDescriptor] {
+     [NSSortDescriptor(key: "name",
+     ascending: true,
+     selector:
+     #selector(NSString.localizedStandardCompare))]
+     }*/
 }
 
 struct DishesView_Previews: PreviewProvider {

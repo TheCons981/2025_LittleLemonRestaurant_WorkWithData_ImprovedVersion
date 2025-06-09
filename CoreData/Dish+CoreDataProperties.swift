@@ -151,6 +151,13 @@ extension Dish : Identifiable {
     
     class func readAll(_ context:NSManagedObjectContext) -> [Dish]? {
         let request = Dish.request()
+        request.sortDescriptors = [
+            NSSortDescriptor(key: "name",
+                             ascending: true,
+                             selector:
+                                #selector(NSString.localizedStandardCompare)
+                            )
+        ]
         do {
             guard let results = try context.fetch(request) as? [Dish],
                   results.count > 0 else { return nil }

@@ -48,5 +48,5 @@ extension Location {
         
         return restaurantLocation;
     }
-    
+
 }

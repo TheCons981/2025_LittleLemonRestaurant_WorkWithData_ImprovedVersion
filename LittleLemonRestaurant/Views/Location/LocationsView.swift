@@ -1,8 +1,12 @@
 import SwiftUI
 
 struct LocationsView: View {
-    @EnvironmentObject var model:Model
+    
     @Environment(\.managedObjectContext) private var viewContext
+    
+    @EnvironmentObject var model:Model
+    @EnvironmentObject var locationViewModel:LocationViewModel
+    //@StateObject var locationViewModel = LocationViewModel()
     
     var body: some View {
         VStack {
@@ -17,33 +21,41 @@ struct LocationsView: View {
             .cornerRadius(20)
             
             NavigationView {
-                FetchedObjects(
-                    sortDescriptors: buildSortDescriptors()) {
-                        (restaurants: [Location]) in
-                        List {
-                            ForEach(restaurants, id:\.self) { restaurant in
-                                NavigationLink(destination: ReservationFormView(Location.mapToRestaurantLocationObject(location: restaurant))) {
-                                    LocationView(Location.mapToRestaurantLocationObject(location: restaurant))
-                                }
-                            }
-                        }
-                        .navigationBarTitle("")
-                        .navigationBarHidden(true)
-                        /*.searchable(text: $searchText,
-                         prompt: "search...")*/
-                    }
                 
+                //decoupled coredata and view...
                 
-                // EmptyView()
-                /*List(model.restaurants, id: \.self) { restaurant in
-                 NavigationLink(destination: ReservationForm(restaurant)) {
-                 RestaurantView(restaurant)
+                /*FetchedObjects(
+                 sortDescriptors: buildSortDescriptors()) {
+                 (restaurants: [Location]) in
+                 List {
+                 ForEach(restaurants, id:\.self) { restaurant in
+                 NavigationLink(destination: ReservationFormView(Location.mapToRestaurantLocationObject(location: restaurant))) {
+                 LocationView(Location.mapToRestaurantLocationObject(location: restaurant))
+                 }
                  }
                  }
                  .navigationBarTitle("")
-                 .navigationBarHidden(true)*/
+                 .navigationBarHidden(true)
+                 /*.searchable(text: $searchText,
+                  prompt: "search...")*/
+                 }*/
+                
+                List(locationViewModel.filteredRestaurants, id: \.self) { restaurant in
+                    NavigationLink(destination: ReservationFormView(restaurant)) {
+                        LocationView(restaurant)
+                    }
+                }
+                .scrollPosition(id: $locationViewModel.scrollPosition)
+                .searchable(text: $locationViewModel.searchText, prompt: "search...")
+                .refreshable {
+                    await locationViewModel.getRestaurants(viewContext)
+                }
+                //.navigationBarTitle("")
+                //.navigationBarHidden(true)
+                .background(NavigationBarNoCollapse())
+                
             }
-            
+            .navigationBarTitleDisplayMode(.inline)
             .onDisappear{
                 if model.tabBarChanged { return }
                 
@@ -52,10 +64,7 @@ struct LocationsView: View {
                 model.displayingReservationForm = true
             }
             .task {
-               
-                    await model.fetchRestaurants(viewContext)
-                   
-                
+                await locationViewModel.fetchRestaurants(viewContext)
             }
             
             .frame(maxHeight: .infinity)
@@ -65,7 +74,7 @@ struct LocationsView: View {
             // into complex steps that run out of the scope of this
             // course, so, this is a hack, to bring the list up
             // try to comment this line and see what happens.
-            .padding(.top, -10)
+            //.padding(.top, -10)
             
             // makes the list background invisible, default is gray
             .scrollContentBackground(.hidden)
@@ -77,14 +86,14 @@ struct LocationsView: View {
      return searchText == "" ?
      NSPredicate(value: true) :
      NSPredicate(format: "phoneNumber CONTAINS[cd] %@", searchText)
-     }*/
+     }
     
     private func buildSortDescriptors() -> [NSSortDescriptor] {
         [NSSortDescriptor(key: "city",
                           ascending: true,
                           selector:
                             #selector(NSString.localizedStandardCompare))]
-    }
+    }*/
 }
 
 struct ContentView_Previews: PreviewProvider {
