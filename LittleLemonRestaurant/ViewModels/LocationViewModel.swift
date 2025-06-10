@@ -11,7 +11,7 @@ class LocationViewModel: ObservableObject {
     
     func fetchRestaurants(_ coreDataContext:NSManagedObjectContext) async {
         
-        let url = URL(string: "https://mocki.io/v1/07e6a206-f962-4156-8bf8-9c21773f1602")!
+        let url = URL(string: ApiConst.littleLemonLocationsUrl)!
         let urlSession = URLSession.shared
         
         do {
@@ -29,7 +29,6 @@ class LocationViewModel: ObservableObject {
         }
     }
     
-    //getFromCoreDataAndMap
     func getRestaurants(_ coreDataContext:NSManagedObjectContext) async -> Void {
         let locations = Location.readAll(coreDataContext)
         restaurants = locations?.map { location in

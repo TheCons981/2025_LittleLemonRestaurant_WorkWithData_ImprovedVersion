@@ -4,7 +4,7 @@ import CoreData
 struct MainView: View {
     //@Environment(\.managedObjectContext) private var viewContext
     
-    @StateObject var model = Model()
+    @StateObject var model = AppViewModel()
     @StateObject var locationViewModel = LocationViewModel()
     @StateObject var dishViewModel = DishViewModel()
     
@@ -16,9 +16,10 @@ struct MainView: View {
             LocationsView()
                 .tag(0)
                 .tabItem {
-                    if !model.displayingReservationForm {
-                        Label("Locations", systemImage: "fork.knife")
-                    }
+                    Label("Locations", systemImage: "fork.knife")
+                    /*if !model.displayingReservationForm {
+                        
+                    }*/
                 }
                 .onAppear() {
                     tabSelection = 0
@@ -28,9 +29,10 @@ struct MainView: View {
             DishesView()
                 .tag(1)
                 .tabItem {
-                    if !model.displayingReservationForm {
-                        Label("Our Dishes", systemImage: "fork.knife.circle")
-                    }
+                    Label("Our Dishes", systemImage: "fork.knife.circle")
+                    /*if !model.displayingReservationForm {
+                        
+                    }*/
                 }
                 .onAppear() {
                     tabSelection = 1
@@ -42,9 +44,10 @@ struct MainView: View {
             ReservationView()
                 .tag(2)
                 .tabItem {
-                    if !model.displayingReservationForm {
+                    Label("Reservation", systemImage: "square.and.pencil")
+                    /*if !model.displayingReservationForm {
                         Label("Reservation", systemImage: "square.and.pencil")
-                    }
+                    }*/
                 }
                 .onAppear() {
                     tabSelection = 2
@@ -59,7 +62,7 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView().environmentObject(Model())
+        MainView().environmentObject(AppViewModel())
     }
 }
 

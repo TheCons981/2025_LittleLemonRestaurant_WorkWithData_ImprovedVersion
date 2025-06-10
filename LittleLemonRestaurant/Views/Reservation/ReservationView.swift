@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ReservationView: View {
-    @EnvironmentObject var model:Model
+    @EnvironmentObject var model:AppViewModel
     
     var body: some View {
         // you can create variables inside body
@@ -26,17 +26,12 @@ struct ReservationView: View {
                     
                 } else {
                     
-                    Text("RESERVATION")
-                        .padding([.leading, .trailing], 40)
-                        .padding([.top, .bottom], 8)
-                        .background(Color.gray.opacity(0.2))
-                        .cornerRadius(20)
-                        .padding(.bottom, 20)
+                    LittleLemonTitleView(title: "Reservation")
                     
                     
                     HStack {
                         VStack (alignment: .leading) {
-                            Text("RESTAURANT")
+                            Text("Restaurant")
                                 .font(.subheadline)
                                 .padding(.bottom, 5)
                             LocationView(restaurant)
@@ -52,7 +47,7 @@ struct ReservationView: View {
                     
                     VStack {
                         HStack {
-                            Text("NAME: ")
+                            Text("Name: ")
                                 .foregroundColor(.gray)
                                 .font(.subheadline)
                             
@@ -61,7 +56,7 @@ struct ReservationView: View {
                         }
                         
                         HStack {
-                            Text("E-MAIL: ")
+                            Text("E-mail: ")
                                 .foregroundColor(.gray)
                                 .font(.subheadline)
                             
@@ -70,7 +65,7 @@ struct ReservationView: View {
                         }
                         
                         HStack {
-                            Text("PHONE: ")
+                            Text("Phone: ")
                                 .foregroundColor(.gray)
                                 .font(.subheadline)
                             
@@ -83,7 +78,7 @@ struct ReservationView: View {
                     
                     
                     HStack {
-                        Text("PARTY: ")
+                        Text("Party: ")
                             .foregroundColor(.gray)
                         
                             .font(.subheadline)
@@ -95,7 +90,7 @@ struct ReservationView: View {
                     
                     VStack {
                         HStack {
-                            Text("DATE: ")
+                            Text("Date: ")
                                 .foregroundColor(.gray)
                                 .font(.subheadline)
                             
@@ -104,7 +99,7 @@ struct ReservationView: View {
                         }
                         
                         HStack {
-                            Text("TIME: ")
+                            Text("Time: ")
                                 .foregroundColor(.gray)
                                 .font(.subheadline)
                             
@@ -116,7 +111,7 @@ struct ReservationView: View {
                     
                     HStack {
                         VStack (alignment: .leading) {
-                            Text("SPECIAL REQUESTS:")
+                            Text("Special Requests:")
                                 .foregroundColor(.gray)
                                 .font(.subheadline)
                             Text(model.reservation.specialRequests)
@@ -128,13 +123,13 @@ struct ReservationView: View {
                 }
             }
         }
-        .padding(50)
+        .padding()
     }
 }
 
 struct ReservationView_Previews: PreviewProvider {
     static var previews: some View {
-        ReservationView().environmentObject(Model())
+        ReservationView().environmentObject(AppViewModel())
     }
 }
 

@@ -9,20 +9,13 @@ struct DishesView: View {
     //@State var searchText = ""
     
     var body: some View {
-        VStack {
-            LittleLemonLogoView()
-                .padding(.bottom, 10)
-                .padding(.top, 50)
-            
-            Text ("Tap to order")
-                .foregroundColor(.black)
-                .padding([.leading, .trailing], 40)
-                .padding([.top, .bottom], 8)
-                .background(Color("approvedYellow"))
-                .cornerRadius(20)
-            
-            
-            NavigationView {
+        
+        NavigationView {
+            VStack {
+                
+                LittleLemonLogoView()
+                LittleLemonTitleView(title: "Menu")
+                
                 List {
                     ForEach(dishViewModel.filteredMenuItems, id:\.id) { dish in
                         DishDetailView(dish)
@@ -54,29 +47,28 @@ struct DishesView: View {
                  prompt: "search...")
                  }*/
             }
-            
-            // SwiftUI has this space between the title and the list
-            // that is amost impossible to remove without incurring
-            // into complex steps that run out of the scope of this
-            // course, so, this is a hack, to bring the list up
-            // try to comment this line and see what happens.
-            //.padding(.top, -10)//
-            
-            .alert("Order placed, thanks!",
-                   isPresented: $showAlert) {
-                Button("OK", role: .cancel) { }
-            }
-            
-            // makes the list background invisible, default is gray
-                   .scrollContentBackground(.hidden)
-            
-            // runs when the view appears
-                   .task {
-                       await dishViewModel.fetchMenuItems(viewContext)
-                   }
-            
-            
         }
+        // SwiftUI has this space between the title and the list
+        // that is amost impossible to remove without incurring
+        // into complex steps that run out of the scope of this
+        // course, so, this is a hack, to bring the list up
+        // try to comment this line and see what happens.
+        //.padding(.top, -10)//
+        
+        .alert("Order placed, thanks!",
+               isPresented: $showAlert) {
+            Button("OK", role: .cancel) {
+                
+            }
+        }
+        
+        // makes the list background invisible, default is gray
+               .scrollContentBackground(.hidden)
+        
+        // runs when the view appears
+               .task {
+                   await dishViewModel.fetchMenuItems(viewContext)
+               }
     }
     
     /*private func buildPredicate() -> NSPredicate {

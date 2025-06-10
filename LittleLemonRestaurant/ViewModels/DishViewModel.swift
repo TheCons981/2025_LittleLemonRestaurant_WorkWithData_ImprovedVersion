@@ -10,7 +10,7 @@ class DishViewModel: ObservableObject {
     @Published var scrollPosition: Int? = nil
     
     func fetchMenuItems(_ coreDataContext:NSManagedObjectContext) async {
-        let url = URL(string: "https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/littleLemonSimpleMenu.json")!
+        let url = URL(string: ApiConst.littleLemonMenuUrl)!
         let urlSession = URLSession.shared
         
         do {
