@@ -36,6 +36,8 @@
 		41B542752907E0540092B0E7 /* ReservationFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B542742907E0540092B0E7 /* ReservationFormView.swift */; };
 		41B5427D2907F4850092B0E7 /* ReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B5427C2907F4850092B0E7 /* ReservationView.swift */; };
 		4B1510F22DF5DC92005695DE /* Location+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1510F12DF5DC92005695DE /* Location+Extension.swift */; };
+		4BE1B8492DF8451500397EBF /* locations.json in Resources */ = {isa = PBXBuildFile; fileRef = 4BE1B8482DF844FF00397EBF /* locations.json */; };
+		4BE1B84B2DF8456000397EBF /* littleLemonMenu.json in Resources */ = {isa = PBXBuildFile; fileRef = 4BE1B84A2DF8454F00397EBF /* littleLemonMenu.json */; };
 		4BFD71B62DF6AF64003DB8B2 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD71B52DF6AF64003DB8B2 /* LocationViewModel.swift */; };
 		4BFD71B82DF6B017003DB8B2 /* UrlSessionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD71B72DF6B00D003DB8B2 /* UrlSessionExtension.swift */; };
 		4BFD71BB2DF74CA3003DB8B2 /* LittleLemonTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD71BA2DF74C9A003DB8B2 /* LittleLemonTitleView.swift */; };
@@ -73,6 +75,8 @@
 		41B542742907E0540092B0E7 /* ReservationFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReservationFormView.swift; sourceTree = "<group>"; };
 		41B5427C2907F4850092B0E7 /* ReservationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReservationView.swift; sourceTree = "<group>"; };
 		4B1510F12DF5DC92005695DE /* Location+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+Extension.swift"; sourceTree = "<group>"; };
+		4BE1B8482DF844FF00397EBF /* locations.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = locations.json; sourceTree = "<group>"; };
+		4BE1B84A2DF8454F00397EBF /* littleLemonMenu.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = littleLemonMenu.json; sourceTree = "<group>"; };
 		4BFD71B52DF6AF64003DB8B2 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		4BFD71B72DF6B00D003DB8B2 /* UrlSessionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlSessionExtension.swift; sourceTree = "<group>"; };
 		4BFD71BA2DF74C9A003DB8B2 /* LittleLemonTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittleLemonTitleView.swift; sourceTree = "<group>"; };
@@ -195,6 +199,7 @@
 				4B1510FC2DF5FA58005695DE /* Location */,
 				41265844290A8311001023C9 /* Reservation */,
 				41AECB782906D6C2007983FF /* Model.swift */,
+				4BE1B8472DF844EA00397EBF /* Mockups */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -256,6 +261,15 @@
 				41ACB123294206E900CE9FB3 /* Dish+Extension.swift */,
 			);
 			path = Dish;
+			sourceTree = "<group>";
+		};
+		4BE1B8472DF844EA00397EBF /* Mockups */ = {
+			isa = PBXGroup;
+			children = (
+				4BE1B84A2DF8454F00397EBF /* littleLemonMenu.json */,
+				4BE1B8482DF844FF00397EBF /* locations.json */,
+			);
+			path = Mockups;
 			sourceTree = "<group>";
 		};
 		4BFD71B92DF6B1B4003DB8B2 /* ViewModels */ = {
@@ -326,6 +340,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				41AECB6E2906D638007983FF /* Preview Assets.xcassets in Resources */,
+				4BE1B8492DF8451500397EBF /* locations.json in Resources */,
+				4BE1B84B2DF8456000397EBF /* littleLemonMenu.json in Resources */,
 				41AECB6B2906D638007983FF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

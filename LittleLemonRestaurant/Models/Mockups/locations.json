@@ -1,0 +1,32 @@
+[
+  {
+    "city": "Las Vegas",
+    "neighborhood": "Downtown",
+    "phoneNumber": "(702) 555-9898"
+  },
+  {
+    "city": "Los Angeles",
+    "neighborhood": "North Hollywood",
+    "phoneNumber": "(213) 555-1453"
+  },
+  {
+    "city": "Los Angeles",
+    "neighborhood": "Venice",
+    "phoneNumber": "(310) 555-1222"
+  },
+  {
+    "city": "Nevada",
+    "neighborhood": "Venice",
+    "phoneNumber": "(725) 555-5454"
+  },
+  {
+    "city": "San Francisco",
+    "neighborhood": "North Beach",
+    "phoneNumber": "(415) 555-1345"
+  },
+  {
+    "city": "San Francisco",
+    "neighborhood": "Union Square",
+    "phoneNumber": "(415) 555-9813"
+  }
+]
