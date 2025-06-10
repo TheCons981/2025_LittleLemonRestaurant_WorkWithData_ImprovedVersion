@@ -88,6 +88,8 @@ struct DishesView: View {
 struct DishesView_Previews: PreviewProvider {
     static var previews: some View {
         DishesView()
+            .environmentObject(DishViewModel())
+            .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
     }
 }
 

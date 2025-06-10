@@ -53,6 +53,11 @@ class ReservationViewModel: ObservableObject {
         
     }
     
+    func deleteReservation(_ coreDataContext: NSManagedObjectContext) async -> Void {
+        Reservation.deleteAll(coreDataContext)
+        reservation = ReservationStruct();
+    }
+    
 }
 
 

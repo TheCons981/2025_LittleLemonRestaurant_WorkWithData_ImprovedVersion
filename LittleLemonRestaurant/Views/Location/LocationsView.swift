@@ -97,6 +97,10 @@ struct LocationsView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationsView().environmentObject(AppViewModel())
+        LocationsView()
+            .environmentObject(AppViewModel())
+            .environmentObject(ReservationViewModel())
+            .environmentObject(LocationViewModel())
+            .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
     }
 }

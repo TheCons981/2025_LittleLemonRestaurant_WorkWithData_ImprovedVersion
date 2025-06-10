@@ -19,7 +19,7 @@ class LocationViewModel: ObservableObject {
             let fetchedRestaurants = try JSONDecoder().decode([LocationStruct].self, from: data)
             restaurants = fetchedRestaurants.sorted { $0.city < $1.city }
             
-            // populate Core Data
+            // populate Core Data. the method add only new elements.
             //Location.deleteAll(coreDataContext)
             Location.saveAll(locations: restaurants, coreDataContext)
             

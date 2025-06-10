@@ -123,6 +123,23 @@ struct ReservationView: View {
                         Spacer()
                     }
                     .frame(maxWidth:.infinity)
+                    .padding(.bottom, 20)
+                    
+                    
+                    HStack {
+                        Button(role: .destructive) {
+                            Task {
+                                await reservationViewModel.deleteReservation(viewContext)
+                            }
+                            
+                        } label: {
+                            Text("Delete reservation")
+                                
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .cornerRadius(20)
+                        Spacer()
+                    }
                     
                 }
             }
@@ -137,7 +154,9 @@ struct ReservationView: View {
 
 struct ReservationView_Previews: PreviewProvider {
     static var previews: some View {
-        ReservationView().environmentObject(ReservationViewModel())
+        ReservationView()
+            .environmentObject(ReservationViewModel())
+            .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
     }
 }
 

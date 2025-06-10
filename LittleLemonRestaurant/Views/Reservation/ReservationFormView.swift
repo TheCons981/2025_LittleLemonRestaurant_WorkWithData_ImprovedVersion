@@ -119,21 +119,20 @@ struct ReservationFormView: View {
                     .padding()
                     .overlay( RoundedRectangle(cornerRadius: 20).stroke(.gray.opacity(0.2)) )
                     .lineLimit(6)
-                    .padding([.top, .bottom], 20)
                 }
                 
                 
-                // add the RESERVE button
                 Button(action: {
                     validateForm()
                 }, label: {
-                    Text("CONFIRM RESERVATION")
+                    Text("Confirm reservation")
+                        
                 })
-                .padding(.init(top: 10, leading: 30, bottom: 10, trailing: 30))
-                .foregroundColor(.white)
-                .background(Color.blue)
+                .buttonStyle(.borderedProminent)
                 .cornerRadius(20)
-                //.padding(.top, 10)
+                
+                
+               
             }
         }
         .padding(.top, 8)

@@ -113,8 +113,6 @@
 		414B3E97293A5284008DCB9D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				4BE1B8682DF890F700397EBF /* Reservation+CoreDataClass.swift */,
-				4BE1B8692DF890F700397EBF /* Reservation+CoreDataProperties.swift */,
 				417525FD292269EC00B8137D /* LittleLemonRestaurant.xcdatamodeld */,
 				4195E88E292B7B45005A5B28 /* Customer+CoreDataClass.swift */,
 				4195E88F292B7B45005A5B28 /* Customer+CoreDataProperties.swift */,
@@ -124,6 +122,8 @@
 				4195E88B292B7B45005A5B28 /* Dish+CoreDataProperties.swift */,
 				4195E88C292B7B45005A5B28 /* Location+CoreDataClass.swift */,
 				4195E88D292B7B45005A5B28 /* Location+CoreDataProperties.swift */,
+				4BE1B8682DF890F700397EBF /* Reservation+CoreDataClass.swift */,
+				4BE1B8692DF890F700397EBF /* Reservation+CoreDataProperties.swift */,
 				4175260729228ACA00B8137D /* Persistence.swift */,
 				41AF047B293E4D4F007D8DA7 /* FetchedObjects.swift */,
 			);
@@ -301,10 +301,10 @@
 		4BFD71B92DF6B1B4003DB8B2 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				4BE1B85E2DF88DFF00397EBF /* ReservationViewModel.swift */,
 				41AECB782906D6C2007983FF /* AppViewModel.swift */,
 				418FBA4D2939039800814B08 /* DishViewModel.swift */,
 				4BFD71B52DF6AF64003DB8B2 /* LocationViewModel.swift */,
+				4BE1B85E2DF88DFF00397EBF /* ReservationViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
