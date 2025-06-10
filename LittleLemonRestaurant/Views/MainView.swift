@@ -7,6 +7,7 @@ struct MainView: View {
     @StateObject var model = AppViewModel()
     @StateObject var locationViewModel = LocationViewModel()
     @StateObject var dishViewModel = DishViewModel()
+    @StateObject var reservationViewModel = ReservationViewModel()
     
     @State var tabSelection = 0
     @State var previousTabSelection = -1 // any invalid value
@@ -25,6 +26,7 @@ struct MainView: View {
                     tabSelection = 0
                 }
                 .environmentObject(locationViewModel)
+                .environmentObject(reservationViewModel)
             
             DishesView()
                 .tag(1)
@@ -52,6 +54,7 @@ struct MainView: View {
                 .onAppear() {
                     tabSelection = 2
                 }
+                .environmentObject(reservationViewModel)
         }
         //.id(tabSelection)
         .environmentObject(model)
@@ -62,7 +65,11 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView().environmentObject(AppViewModel())
+        MainView()
+            .environmentObject(AppViewModel())
+            .environmentObject(LocationViewModel())
+            .environmentObject(ReservationViewModel())
+            .environmentObject(DishViewModel())
     }
 }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="21G115" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24F74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Customer" representedClassName="Customer" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String"/>
         <attribute name="fistName" optional="YES" attributeType="String"/>
@@ -30,5 +30,15 @@
         <relationship name="toCustomer" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Customer" inverseName="fromLocation" inverseEntity="Customer"/>
         <relationship name="toDessert" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Dessert" inverseName="fromLocation" inverseEntity="Dessert"/>
         <relationship name="toDish" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Dish" inverseName="fromLocation" inverseEntity="Dish"/>
+    </entity>
+    <entity name="Reservation" representedClassName="Reservation" syncable="YES">
+        <attribute name="customerEmail" optional="YES" attributeType="String"/>
+        <attribute name="customerName" optional="YES" attributeType="String"/>
+        <attribute name="customerPhoneNumber" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="party" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="reservationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="reservationNotes" optional="YES" attributeType="String"/>
+        <relationship name="fromLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location"/>
     </entity>
 </model>

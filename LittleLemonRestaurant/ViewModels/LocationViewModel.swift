@@ -20,7 +20,7 @@ class LocationViewModel: ObservableObject {
             restaurants = fetchedRestaurants.sorted { $0.city < $1.city }
             
             // populate Core Data
-            Location.deleteAll(coreDataContext)
+            //Location.deleteAll(coreDataContext)
             Location.saveAll(locations: restaurants, coreDataContext)
             
         }

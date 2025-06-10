@@ -95,4 +95,31 @@ extension Location : Identifiable {
         }
     }
     
+    static func with(_ context:NSManagedObjectContext, city: String, phoneNumber: String) -> Location? {
+        let request = Location.request()
+        let predicate1 = NSPredicate(format: "city == %@", city)
+        let predicate2 = NSPredicate(format: "phoneNumber == %@", phoneNumber)
+        
+        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate1, predicate2])
+        
+        
+        request.predicate = compoundPredicate
+        
+        let sortDescriptor = NSSortDescriptor(key: "city",
+                                              ascending: false,
+                                              selector: #selector(NSString .localizedStandardCompare))
+        request.sortDescriptors = [sortDescriptor]
+        
+        do {
+            guard let results = try context.fetch(request) as? [Location],
+                  results.count > 0,
+                  let location = results.first
+            else { return Location(context: context) }
+            return location
+        } catch (let error){
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+    
 }

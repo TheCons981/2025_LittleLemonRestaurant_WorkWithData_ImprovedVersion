@@ -1,8 +1,10 @@
 import SwiftUI
 
 struct ReservationFormView: View {
+    @Environment(\.managedObjectContext) private var viewContext
     
-    @EnvironmentObject var model:AppViewModel
+    //@EnvironmentObject var model:AppViewModel
+    @EnvironmentObject var reservationViewModel:ReservationViewModel
     @State var showFormInvalidMessage = false
     @State var errorMessage = ""
     
@@ -131,7 +133,7 @@ struct ReservationFormView: View {
                 .foregroundColor(.white)
                 .background(Color.blue)
                 .cornerRadius(20)
-                .padding(.top, 10)
+                //.padding(.top, 10)
             }
         }
         .padding(.top, 8)
@@ -150,7 +152,9 @@ struct ReservationFormView: View {
         .scrollContentBackground(.hidden)
         
         .onChange(of: mustChangeReservation) { _ in
-            model.reservation = temporaryReservation
+            Task {
+                await reservationViewModel.saveReservation(viewContext, reservationRequest: temporaryReservation)
+            }
         }
         
         // add an alert after this line
@@ -159,12 +163,7 @@ struct ReservationFormView: View {
         }, message: {
             Text(self.errorMessage)
         })
-        .onAppear {
-            model.displayingReservationForm = true
-        }
-        .onDisappear {
-            model.displayingReservationForm = false
-        }
+        
     }
     
     private func validateForm() {

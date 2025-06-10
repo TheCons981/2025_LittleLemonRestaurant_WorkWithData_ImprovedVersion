@@ -6,6 +6,7 @@ struct LocationsView: View {
     
     @EnvironmentObject var model:AppViewModel
     @EnvironmentObject var locationViewModel:LocationViewModel
+    @EnvironmentObject var reservationViewModel:ReservationViewModel
     //@StateObject var locationViewModel = LocationViewModel()
     
     var body: some View {
@@ -42,7 +43,7 @@ struct LocationsView: View {
                  }*/
                 
                 List(locationViewModel.filteredRestaurants, id: \.self) { restaurant in
-                    NavigationLink(destination: ReservationFormView(restaurant)) {
+                    NavigationLink(destination: ReservationFormView(restaurant).environmentObject(reservationViewModel)) {
                         LocationView(restaurant)
                     }
                 }
@@ -61,10 +62,6 @@ struct LocationsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .onDisappear{
             if model.tabBarChanged { return }
-            
-            // this changes the phrase from "Select a location"
-            // to "RESERVATION"
-            model.displayingReservationForm = true
         }
         .task {
             await locationViewModel.fetchRestaurants(viewContext)

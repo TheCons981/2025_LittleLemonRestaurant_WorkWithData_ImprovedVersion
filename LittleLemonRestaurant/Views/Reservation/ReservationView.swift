@@ -1,17 +1,23 @@
 import SwiftUI
 
 struct ReservationView: View {
-    @EnvironmentObject var model:AppViewModel
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    @EnvironmentObject var reservationViewModel:ReservationViewModel
     
     var body: some View {
         // you can create variables inside body
         // to help you reduce code repetition
-        let restaurant = model.reservation.restaurant
+        let restaurant = reservationViewModel.reservation.restaurant
         
         ScrollView {
             VStack {
                 LittleLemonLogoView()
-                    .padding(.bottom, 20)
+                LittleLemonTitleView(title: "Your Reservation")
+            }
+            
+            VStack {
+                
                 
                 if restaurant.city.isEmpty {
                     
@@ -20,14 +26,12 @@ struct ReservationView: View {
                         // selected yet, so, show the following message
                         Text("No reservation yet")
                             .foregroundColor(.gray)
+
                     }
                     .frame(maxHeight:.infinity)
                     
                     
                 } else {
-                    
-                    LittleLemonTitleView(title: "Reservation")
-                    
                     
                     HStack {
                         VStack (alignment: .leading) {
@@ -51,7 +55,7 @@ struct ReservationView: View {
                                 .foregroundColor(.gray)
                                 .font(.subheadline)
                             
-                            Text(model.reservation.customerName)
+                            Text(reservationViewModel.reservation.customerName)
                             Spacer()
                         }
                         
@@ -60,7 +64,7 @@ struct ReservationView: View {
                                 .foregroundColor(.gray)
                                 .font(.subheadline)
                             
-                            Text(model.reservation.customerEmail)
+                            Text(reservationViewModel.reservation.customerEmail)
                             Spacer()
                         }
                         
@@ -69,7 +73,7 @@ struct ReservationView: View {
                                 .foregroundColor(.gray)
                                 .font(.subheadline)
                             
-                            Text(model.reservation.customerPhoneNumber)
+                            Text(reservationViewModel.reservation.customerPhoneNumber)
                             Spacer()
                         }
                         
@@ -83,7 +87,7 @@ struct ReservationView: View {
                         
                             .font(.subheadline)
                         
-                        Text("\(model.reservation.party)")
+                        Text("\(reservationViewModel.reservation.party)")
                         Spacer()
                     }
                     .padding(.bottom, 20)
@@ -94,7 +98,7 @@ struct ReservationView: View {
                                 .foregroundColor(.gray)
                                 .font(.subheadline)
                             
-                            Text(model.reservation.reservationDate, style: .date)
+                            Text(reservationViewModel.reservation.reservationDate, style: .date)
                             Spacer()
                         }
                         
@@ -103,7 +107,7 @@ struct ReservationView: View {
                                 .foregroundColor(.gray)
                                 .font(.subheadline)
                             
-                            Text(model.reservation.reservationDate, style: .time)
+                            Text(reservationViewModel.reservation.reservationDate, style: .time)
                             Spacer()
                         }
                     }
@@ -114,7 +118,7 @@ struct ReservationView: View {
                             Text("Special Requests:")
                                 .foregroundColor(.gray)
                                 .font(.subheadline)
-                            Text(model.reservation.specialRequests)
+                            Text(reservationViewModel.reservation.specialRequests)
                         }
                         Spacer()
                     }
@@ -122,14 +126,18 @@ struct ReservationView: View {
                     
                 }
             }
+            .padding()
         }
-        .padding()
+        .task {
+            await reservationViewModel.getReservations(viewContext)
+        }
+        //.padding()
     }
 }
 
 struct ReservationView_Previews: PreviewProvider {
     static var previews: some View {
-        ReservationView().environmentObject(AppViewModel())
+        ReservationView().environmentObject(ReservationViewModel())
     }
 }
 
