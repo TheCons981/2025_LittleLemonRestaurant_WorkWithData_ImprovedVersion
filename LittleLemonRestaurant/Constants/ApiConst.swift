@@ -7,8 +7,8 @@
 
 public class ApiConst {
     
-    static var littleLemonMenuUrl: String = "https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/littleLemonSimpleMenu.json";
+    static var littleLemonMenuUrl: String = "https://raw.githubusercontent.com/TheCons981/2025_LittleLemonRestaurant_WorkWithData_ImprovedVersion/refs/heads/main/LittleLemonRestaurant/Models/Mockups/littleLemonMenu.json";
     
-    static var littleLemonLocationsUrl: String = "https://mocki.io/v1/07e6a206-f962-4156-8bf8-9c21773f1602"
+    static var littleLemonLocationsUrl: String = "https://raw.githubusercontent.com/TheCons981/2025_LittleLemonRestaurant_WorkWithData_ImprovedVersion/refs/heads/main/LittleLemonRestaurant/Models/Mockups/locations.json"
     
 }

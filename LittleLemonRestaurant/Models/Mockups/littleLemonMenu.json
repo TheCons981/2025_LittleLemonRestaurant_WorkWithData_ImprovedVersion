@@ -59,6 +59,151 @@
       "id": 12,
       "title": "Iced Tea",
       "price": "3"
+    },
+    {
+      "id": 13,
+      "title": "Sparkling Water",
+      "price": "3"
+    },
+    {
+      "id": 14,
+      "title": "Coke Zero",
+      "price": "4"
+    },
+    {
+      "id": 15,
+      "title": "Chips",
+      "price": "7"
+    },
+    {
+      "id": 16,
+      "title": "Casear Salad",
+      "price": "5"
+    },
+    {
+      "id": 17,
+      "title": "Fish & Chips",
+      "price": "5"
+    },
+    {
+      "id": 18,
+      "title": "Hamburger",
+      "price": "5"
+    },
+    {
+      "id": 19,
+      "title": "Fish burger",
+      "price": "5"
+    },
+    {
+      "id": 20,
+      "title": "Beer",
+      "price": "5"
+    },
+    {
+      "id": 21,
+      "title": "Fanta",
+      "price": "5"
+    },
+    {
+      "id": 22,
+      "title": "Sprite",
+      "price": "5"
+    },
+    {
+      "id": 23,
+      "title": "Protein Water",
+      "price": "5"
+    },
+    {
+      "id": 24,
+      "title": "Cheesecake",
+      "price": "5"
+    },
+    {
+      "id": 25,
+      "title": "Waffles",
+      "price": "5"
+    },
+    {
+      "id": 26,
+      "title": "Pancakes",
+      "price": "5"
+    },
+    {
+      "id": 27,
+      "title": "Chicken Quesadilla",
+      "price": "11"
+    },
+    {
+      "id": 28,
+      "title": "Mozzarella Sticks",
+      "price": "8"
+    },
+    {
+      "id": 29,
+      "title": "Buffalo Wings",
+      "price": "13"
+    },
+    {
+      "id": 30,
+      "title": "Eggplant Parmesan",
+      "price": "14"
+    },
+    {
+      "id": 31,
+      "title": "Veggie Burger",
+      "price": "10"
+    },
+    {
+      "id": 32,
+      "title": "Turkey Club Sandwich",
+      "price": "9"
+    },
+    {
+      "id": 33,
+      "title": "Margherita Pizza",
+      "price": "15"
+    },
+    {
+      "id": 34,
+      "title": "Pulled Pork Sliders",
+      "price": "12"
+    },
+    {
+      "id": 35,
+      "title": "Mushroom Risotto",
+      "price": "14"
+    },
+    {
+      "id": 36,
+      "title": "Chocolate Brownie",
+      "price": "6"
+    },
+    {
+      "id": 37,
+      "title": "Fruit Salad",
+      "price": "7"
+    },
+    {
+      "id": 38,
+      "title": "Lemonade",
+      "price": "4"
+    },
+    {
+      "id": 39,
+      "title": "Tiramisu",
+      "price": "8"
+    },
+    {
+      "id": 40,
+      "title": "Caprese Salad",
+      "price": "11"
+    },
+    {
+      "id": 41,
+      "title": "Sweet Potato Fries",
+      "price": "8"
     }
   ]
 }

@@ -1,32 +1,252 @@
 [
-  {
-    "city": "Las Vegas",
-    "neighborhood": "Downtown",
-    "phoneNumber": "(702) 555-9898"
-  },
-  {
-    "city": "Los Angeles",
-    "neighborhood": "North Hollywood",
-    "phoneNumber": "(213) 555-1453"
-  },
-  {
-    "city": "Los Angeles",
-    "neighborhood": "Venice",
-    "phoneNumber": "(310) 555-1222"
-  },
-  {
-    "city": "Nevada",
-    "neighborhood": "Venice",
-    "phoneNumber": "(725) 555-5454"
-  },
-  {
-    "city": "San Francisco",
-    "neighborhood": "North Beach",
-    "phoneNumber": "(415) 555-1345"
-  },
-  {
-    "city": "San Francisco",
-    "neighborhood": "Union Square",
-    "phoneNumber": "(415) 555-9813"
-  }
+    {
+        "city": "Las Vegas",
+        "neighborhood": "Downtown",
+        "phoneNumber": "(702) 555-9898"
+    },
+    {
+        "city": "Los Angeles",
+        "neighborhood": "North Hollywood",
+        "phoneNumber": "(213) 555-1453"
+    },
+    {
+        "city": "Los Angeles",
+        "neighborhood": "Venice",
+        "phoneNumber": "(310) 555-1222"
+    },
+    {
+        "city": "Nevada",
+        "neighborhood": "Venice",
+        "phoneNumber": "(725) 555-5454"
+    },
+    {
+        "city": "San Francisco",
+        "neighborhood": "North Beach",
+        "phoneNumber": "(415) 555-1345"
+    },
+    {
+        "city": "San Francisco",
+        "neighborhood": "Union Square",
+        "phoneNumber": "(415) 555-9813"
+    },
+    {
+        "city": "Chicago",
+        "neighborhood": "Albany Park",
+        "phoneNumber": "(773) 444-9898"
+    },
+    {
+        "city": "Chicago",
+        "neighborhood": "Ashburn",
+        "phoneNumber": "(773) 444-9797"
+    },
+    {
+        "city": "Chicago",
+        "neighborhood": "Avalon Park",
+        "phoneNumber": "(773) 444-9696"
+    },
+    {
+        "city": "Chicago",
+        "neighborhood": "Avondale",
+        "phoneNumber": "(773) 444-9595"
+    },
+    {
+        "city": "Chicago",
+        "neighborhood": "Belmont central",
+        "phoneNumber": "(773) 444-9494"
+    },
+    {
+        "city": "Chicago",
+        "neighborhood": "Belmont",
+        "phoneNumber": "(773) 444-9393"
+    },
+    {
+        "city": "San Diego",
+        "neighborhood": "Downtown",
+        "phoneNumber": "(619) 444-9393"
+    },
+    {
+        "city": "San Diego",
+        "neighborhood": "Golden Hill",
+        "phoneNumber": "(619) 444-9292"
+    },
+    {
+        "city": "San Diego",
+        "neighborhood": "Bay Park",
+        "phoneNumber": "(619) 444-9191"
+    },
+    {
+        "city": "San Diego",
+        "neighborhood": "Golden Hill",
+        "phoneNumber": "(619) 444-9090"
+    },
+    {
+        "city": "New York",
+        "neighborhood": "Harlem",
+        "phoneNumber": "(212) 555-2345"
+    },
+    {
+        "city": "New York",
+        "neighborhood": "Williamsburg",
+        "phoneNumber": "(718) 555-5432"
+    },
+    {
+        "city": "Houston",
+        "neighborhood": "Montrose",
+        "phoneNumber": "(713) 555-8765"
+    },
+    {
+        "city": "Miami",
+        "neighborhood": "Wynwood",
+        "phoneNumber": "(305) 555-1122"
+    },
+    {
+        "city": "Seattle",
+        "neighborhood": "Capitol Hill",
+        "phoneNumber": "(206) 555-3344"
+    },
+    {
+        "city": "Boston",
+        "neighborhood": "Back Bay",
+        "phoneNumber": "(617) 555-6677"
+    },
+    {
+        "city": "Philadelphia",
+        "neighborhood": "Fishtown",
+        "phoneNumber": "(215) 555-7788"
+    },
+    {
+        "city": "Phoenix",
+        "neighborhood": "Arcadia",
+        "phoneNumber": "(602) 555-5566"
+    },
+    {
+        "city": "Dallas",
+        "neighborhood": "Deep Ellum",
+        "phoneNumber": "(214) 555-8899"
+    },
+    {
+        "city": "Portland",
+        "neighborhood": "Pearl District",
+        "phoneNumber": "(503) 555-1020"
+    },
+    {
+        "city": "Atlanta",
+        "neighborhood": "Midtown",
+        "phoneNumber": "(404) 555-3344"
+    },
+    {
+        "city": "Denver",
+        "neighborhood": "Capitol Hill",
+        "phoneNumber": "(303) 555-1212"
+    },
+    {
+        "city": "Austin",
+        "neighborhood": "South Congress",
+        "phoneNumber": "(512) 555-2121"
+    },
+    {
+        "city": "San Jose",
+        "neighborhood": "Willow Glen",
+        "phoneNumber": "(408) 555-3434"
+    },
+    {
+        "city": "San Antonio",
+        "neighborhood": "Alamo Heights",
+        "phoneNumber": "(210) 555-6767"
+    },
+    {
+        "city": "Minneapolis",
+        "neighborhood": "Uptown",
+        "phoneNumber": "(612) 555-9091"
+    },
+    {
+        "city": "Detroit",
+        "neighborhood": "Corktown",
+        "phoneNumber": "(313) 555-8080"
+    },
+    {
+        "city": "Orlando",
+        "neighborhood": "Lake Eola Heights",
+        "phoneNumber": "(407) 555-4848"
+    },
+    {
+        "city": "Charlotte",
+        "neighborhood": "NoDa",
+        "phoneNumber": "(704) 555-1919"
+    },
+    {
+        "city": "Baltimore",
+        "neighborhood": "Fells Point",
+        "phoneNumber": "(410) 555-7272"
+    },
+    {
+        "city": "Cleveland",
+        "neighborhood": "Tremont",
+        "phoneNumber": "(216) 555-3636"
+    },
+    {
+        "city": "Kansas City",
+        "neighborhood": "Crossroads",
+        "phoneNumber": "(816) 555-4444"
+    },
+    {
+        "city": "Sacramento",
+        "neighborhood": "Midtown",
+        "phoneNumber": "(916) 555-8585"
+    },
+    {
+        "city": "Tampa",
+        "neighborhood": "Ybor City",
+        "phoneNumber": "(813) 555-2323"
+    },
+    {
+        "city": "Pittsburgh",
+        "neighborhood": "Shadyside",
+        "phoneNumber": "(412) 555-4747"
+    },
+    {
+        "city": "Columbus",
+        "neighborhood": "German Village",
+        "phoneNumber": "(614) 555-5353"
+    },
+    {
+        "city": "Nashville",
+        "neighborhood": "The Gulch",
+        "phoneNumber": "(615) 555-2525"
+    },
+    {
+        "city": "Milwaukee",
+        "neighborhood": "Bay View",
+        "phoneNumber": "(414) 555-8686"
+    },
+    {
+        "city": "Louisville",
+        "neighborhood": "Highlands",
+        "phoneNumber": "(502) 555-3535"
+    },
+    {
+        "city": "Indianapolis",
+        "neighborhood": "Broad Ripple",
+        "phoneNumber": "(317) 555-7878"
+    },
+    {
+        "city": "New Orleans",
+        "neighborhood": "French Quarter",
+        "phoneNumber": "(504) 555-4545"
+    },
+    {
+        "city": "Salt Lake City",
+        "neighborhood": "Sugar House",
+        "phoneNumber": "(801) 555-2626"
+    },
+    {
+        "city": "St. Louis",
+        "neighborhood": "Central West End",
+        "phoneNumber": "(314) 555-4141"
+    },
+    {
+        "city": "Raleigh",
+        "neighborhood": "Glenwood South",
+        "phoneNumber": "(919) 555-1112"
+    }
 ]
