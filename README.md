@@ -1,4 +1,4 @@
-iOS Project
+
 # CoreData Refresh Project
 
 A lightweight SwiftUI-based project with the main goal of refreshing and deepening my understanding of **Core Data** integration in modern iOS apps.
