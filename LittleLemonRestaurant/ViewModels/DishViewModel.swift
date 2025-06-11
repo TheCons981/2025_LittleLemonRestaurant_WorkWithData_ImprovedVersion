@@ -16,13 +16,9 @@ class DishViewModel: ObservableObject {
         do {
             let (data, _) = try await urlSession.data(from: url)
             let fullMenu = try JSONDecoder().decode(MenuStruct.self, from: data)
-            //menuItems = fullMenu.menu.sorted { $0.title < $1.title }
             
             // populate Core Data
-            //Dish.deleteAll(coreDataContext)
             Dish.saveAll(menuItems: fullMenu.menu, coreDataContext)
-            
-            //await getFilteredDishes(coreDataContext)
         }
         catch {
             print(error)

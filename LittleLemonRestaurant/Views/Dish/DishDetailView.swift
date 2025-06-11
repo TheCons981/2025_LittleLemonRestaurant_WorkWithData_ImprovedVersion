@@ -13,13 +13,13 @@ struct DishDetailView: View {
         self.dish = dish
     }
     
-    var body: some View {        
+    var body: some View {
         HStack{
             Text(dish.title)
                 .padding([.top, .bottom], 7)
-
+            
             Spacer()
-
+            
             Text(dish.formatPrice())
                 .monospaced()
                 .font(.callout)

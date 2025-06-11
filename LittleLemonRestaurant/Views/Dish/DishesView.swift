@@ -18,23 +18,6 @@ struct DishesView: View {
                 LittleLemonLogoView()
                 LittleLemonTitleView(title: "Menu")
                 
-                /*List {
-                 ForEach(dishViewModel.menuItems, id:\.id) { dish in
-                 DishDetailView(dish)
-                 .onTapGesture {
-                 showAlert.toggle()
-                 }
-                 .id(dish.id)
-                 }
-                 }
-                 .scrollPosition(id: $dishViewModel.scrollPosition)
-                 .searchable(text: $dishViewModel.searchText,prompt: "Search...")
-                 .refreshable {
-                 await fetchdishes()
-                 }
-                 .background(NavigationBarNoCollapse())
-                 */
-                
                 FetchedObjects(
                     predicate:buildPredicate(),
                     sortDescriptors: buildSortDescriptors()
@@ -58,6 +41,23 @@ struct DishesView: View {
                 }
             }
         }
+        // makes the list background invisible, default is gray
+        .scrollContentBackground(.hidden)
+        
+       
+        // runs when the view appears
+        .task {
+            if (!dishViewModel.alreadyFetched) {
+                await fetchdishes()
+                dishViewModel.alreadyFetched = true
+            }
+        }
+        .alert("Order placed, thanks!",
+               isPresented: $showAlert) {
+            Button("OK", role: .cancel) {
+                
+            }
+        }
         // SwiftUI has this space between the title and the list
         // that is amost impossible to remove without incurring
         // into complex steps that run out of the scope of this
@@ -65,28 +65,6 @@ struct DishesView: View {
         // try to comment this line and see what happens.
         //.padding(.top, -10)//
         
-        .alert("Order placed, thanks!",
-               isPresented: $showAlert) {
-            Button("OK", role: .cancel) {
-                
-            }
-        }
-        
-        // makes the list background invisible, default is gray
-               .scrollContentBackground(.hidden)
-        
-        /*.onChange(of: dishViewModel.searchText) {
-         Task {
-         await dishViewModel.getFilteredDishes(viewContext)
-         }
-         }*/
-        // runs when the view appears
-               .task {
-                   if (!dishViewModel.alreadyFetched) {
-                       await fetchdishes()
-                       dishViewModel.alreadyFetched = true
-                   }
-               }
     }
     
     private func fetchdishes() async {

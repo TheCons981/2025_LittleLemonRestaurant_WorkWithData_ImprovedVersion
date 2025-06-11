@@ -8,7 +8,6 @@ struct LocationsView: View {
     @EnvironmentObject var model: AppViewModel
     @EnvironmentObject var locationViewModel: LocationViewModel
     @EnvironmentObject var reservationViewModel: ReservationViewModel
-    //@StateObject var locationViewModel = LocationViewModel()
     
     var body: some View {
         
@@ -17,31 +16,6 @@ struct LocationsView: View {
                 
                 LittleLemonLogoView()
                 LittleLemonTitleView(title: "Locations")
-                
-                /*Text (model.displayingReservationForm ? "Reservation Details" :
-                 "Select a location")
-                 .padding([.leading, .trailing], 40)
-                 .padding([.top, .bottom], 8)
-                 .background(Color.gray.opacity(0.2))
-                 .cornerRadius(20)*/
-                
-                //decoupled coredata and view...
-                
-                /*FetchedObjects(
-                 sortDescriptors: buildSortDescriptors()) {
-                 (restaurants: [Location]) in
-                 List {
-                 ForEach(restaurants, id:\.self) { restaurant in
-                 NavigationLink(destination: ReservationFormView(Location.mapToRestaurantLocationObject(location: restaurant))) {
-                 LocationView(Location.mapToRestaurantLocationObject(location: restaurant))
-                 }
-                 }
-                 }
-                 .navigationBarTitle("")
-                 .navigationBarHidden(true)
-                 /*.searchable(text: $searchText,
-                  prompt: "search...")*/
-                 }*/
                 
                 List(locationViewModel.locations, id: \.self) { location in
                     let restaurant = Location.mapToLocationStruct(location: location)
@@ -56,7 +30,7 @@ struct LocationsView: View {
                 }
                 //.navigationBarTitle("")
                 //.navigationBarHidden(true)
-                .background(NavigationBarNoCollapse())
+                //.background(NavigationBarNoCollapse())
             }
             
         }
@@ -65,7 +39,7 @@ struct LocationsView: View {
             if model.tabBarChanged { return }
         }
         .onChange(of: locationViewModel.searchText) {
-            locationViewModel.refresh()
+            locationViewModel.refresh() //already contain the observed searchText value
         }
         .task {
             if (!locationViewModel.alreadyFetched) {
@@ -97,19 +71,7 @@ struct LocationsView: View {
             locationViewModel.refresh()
         }
     }
-    
-    /*private func buildPredicate() -> NSPredicate {
-     return searchText == "" ?
-     NSPredicate(value: true) :
-     NSPredicate(format: "phoneNumber CONTAINS[cd] %@", searchText)
-     }
-     
-     private func buildSortDescriptors() -> [NSSortDescriptor] {
-     [NSSortDescriptor(key: "city",
-     ascending: true,
-     selector:
-     #selector(NSString.localizedStandardCompare))]
-     }*/
+
 }
 
 struct ContentView_Previews: PreviewProvider {

@@ -17,7 +17,6 @@ struct MainView: View {
     
     
     init() {
-        // Questi saranno temporaneamente valorizzati, poi sovrascritti in .body
         _locationViewModel = StateObject(wrappedValue: LocationViewModel(context: PersistenceController.shared.container.viewContext))
         _dishViewModel = StateObject(wrappedValue: DishViewModel())
         _reservationViewModel = StateObject(wrappedValue: ReservationViewModel())
