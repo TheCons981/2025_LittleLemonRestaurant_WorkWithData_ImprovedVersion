@@ -61,6 +61,7 @@ struct MainView: View {
                     }
                     .environmentObject(reservationViewModel)
             }
+            .navigationViewStyle(StackNavigationViewStyle())
             .environmentObject(model)
             .onChange(of: networkMonitor.isConnected) { prevIsconnected, isConnected in
                 let bannerMessage = isConnected ? "Network connection restored" : "Network connection lost"

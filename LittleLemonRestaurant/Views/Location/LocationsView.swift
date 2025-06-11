@@ -39,7 +39,7 @@ struct LocationsView: View {
             if model.tabBarChanged { return }
         }
         .onChange(of: locationViewModel.searchText) {
-            locationViewModel.refresh() //already contain the observed searchText value
+            locationViewModel.refresh() //already contains the observed searchText value
         }
         .task {
             if (!locationViewModel.alreadyFetched) {
