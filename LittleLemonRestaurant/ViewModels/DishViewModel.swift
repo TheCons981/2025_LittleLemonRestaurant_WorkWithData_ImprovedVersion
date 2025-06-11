@@ -19,7 +19,7 @@ class DishViewModel: ObservableObject {
             menuItems = fullMenu.menu.sorted { $0.title < $1.title }
             
             // populate Core Data
-            Dish.deleteAll(coreDataContext)
+            //Dish.deleteAll(coreDataContext)
             Dish.createDishesFrom(menuItems:menuItems, coreDataContext)
         }
         catch {

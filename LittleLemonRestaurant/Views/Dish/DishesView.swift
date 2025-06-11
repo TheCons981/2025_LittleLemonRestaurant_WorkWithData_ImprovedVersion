@@ -4,6 +4,7 @@ import CoreData
 struct DishesView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
+    @EnvironmentObject var networkMonitor: NetworkMonitor
     @EnvironmentObject var dishViewModel: DishViewModel
     @State private var showAlert = false
     //@State var searchText = ""
@@ -67,8 +68,22 @@ struct DishesView: View {
         
         // runs when the view appears
                .task {
-                   await dishViewModel.fetchMenuItems(viewContext)
+                   if(networkMonitor.isConnected){
+                       await dishViewModel.fetchMenuItems(viewContext)
+                   }
+                   else{
+                       await dishViewModel.getDishes(viewContext)
+                   }
                }
+               /*.onChange(of: networkMonitor.isConnected) { isConnected in
+                   Task {
+                       if isConnected {
+                           await dishViewModel.fetchMenuItems(viewContext)
+                       } else {
+                           await dishViewModel.getDishes(viewContext)
+                       }
+                   }
+               }*/
     }
     
     /*private func buildPredicate() -> NSPredicate {

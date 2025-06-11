@@ -42,6 +42,8 @@
 		4BE1B85F2DF88E0800397EBF /* ReservationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE1B85E2DF88DFF00397EBF /* ReservationViewModel.swift */; };
 		4BE1B86A2DF890F700397EBF /* Reservation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE1B8682DF890F700397EBF /* Reservation+CoreDataClass.swift */; };
 		4BE1B86B2DF890F700397EBF /* Reservation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE1B8692DF890F700397EBF /* Reservation+CoreDataProperties.swift */; };
+		4BE1B86E2DF953CE00397EBF /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE1B86D2DF953C500397EBF /* NetworkMonitor.swift */; };
+		4BE1B8702DF960F200397EBF /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE1B86F2DF960EF00397EBF /* Banner.swift */; };
 		4BFD71B62DF6AF64003DB8B2 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD71B52DF6AF64003DB8B2 /* LocationViewModel.swift */; };
 		4BFD71B82DF6B017003DB8B2 /* UrlSessionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD71B72DF6B00D003DB8B2 /* UrlSessionExtension.swift */; };
 		4BFD71BB2DF74CA3003DB8B2 /* LittleLemonTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD71BA2DF74C9A003DB8B2 /* LittleLemonTitleView.swift */; };
@@ -85,6 +87,8 @@
 		4BE1B85E2DF88DFF00397EBF /* ReservationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewModel.swift; sourceTree = "<group>"; };
 		4BE1B8682DF890F700397EBF /* Reservation+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reservation+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4BE1B8692DF890F700397EBF /* Reservation+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reservation+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4BE1B86D2DF953C500397EBF /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		4BE1B86F2DF960EF00397EBF /* Banner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Banner.swift; sourceTree = "<group>"; };
 		4BFD71B52DF6AF64003DB8B2 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		4BFD71B72DF6B00D003DB8B2 /* UrlSessionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlSessionExtension.swift; sourceTree = "<group>"; };
 		4BFD71BA2DF74C9A003DB8B2 /* LittleLemonTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittleLemonTitleView.swift; sourceTree = "<group>"; };
@@ -187,6 +191,7 @@
 		4B1510F42DF5F884005695DE /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4BE1B86D2DF953C500397EBF /* NetworkMonitor.swift */,
 				4BFD71BC2DF74D69003DB8B2 /* NavigationBarNoCollapse.swift */,
 			);
 			path = Utils;
@@ -205,6 +210,7 @@
 		4B1510F62DF5F892005695DE /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4BE1B86F2DF960EF00397EBF /* Banner.swift */,
 				4B1510FD2DF5FA76005695DE /* Dish */,
 				4B1510FC2DF5FA58005695DE /* Location */,
 				41265844290A8311001023C9 /* Reservation */,
@@ -406,6 +412,7 @@
 				4195E898292B7B45005A5B28 /* Dessert+CoreDataClass.swift in Sources */,
 				41B542732907D2360092B0E7 /* LocationView.swift in Sources */,
 				4BFD71BD2DF74D6E003DB8B2 /* NavigationBarNoCollapse.swift in Sources */,
+				4BE1B86E2DF953CE00397EBF /* NetworkMonitor.swift in Sources */,
 				4BFD71B82DF6B017003DB8B2 /* UrlSessionExtension.swift in Sources */,
 				4BFD71BB2DF74CA3003DB8B2 /* LittleLemonTitleView.swift in Sources */,
 				41B542752907E0540092B0E7 /* ReservationFormView.swift in Sources */,
@@ -415,6 +422,7 @@
 				4175260829228ACA00B8137D /* Persistence.swift in Sources */,
 				414B3E99293A705B008DCB9D /* MenuStruct.swift in Sources */,
 				41AECB772906D6A7007983FF /* ReservationStruct.swift in Sources */,
+				4BE1B8702DF960F200397EBF /* Banner.swift in Sources */,
 				41AECB752906D68B007983FF /* LocationStruct.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

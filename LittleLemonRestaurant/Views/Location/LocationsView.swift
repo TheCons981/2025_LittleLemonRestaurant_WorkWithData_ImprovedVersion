@@ -4,9 +4,10 @@ struct LocationsView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     
-    @EnvironmentObject var model:AppViewModel
-    @EnvironmentObject var locationViewModel:LocationViewModel
-    @EnvironmentObject var reservationViewModel:ReservationViewModel
+    @EnvironmentObject var networkMonitor: NetworkMonitor
+    @EnvironmentObject var model: AppViewModel
+    @EnvironmentObject var locationViewModel: LocationViewModel
+    @EnvironmentObject var reservationViewModel: ReservationViewModel
     //@StateObject var locationViewModel = LocationViewModel()
     
     var body: some View {
@@ -64,7 +65,14 @@ struct LocationsView: View {
             if model.tabBarChanged { return }
         }
         .task {
-            await locationViewModel.fetchRestaurants(viewContext)
+            if(networkMonitor.isConnected){
+                await locationViewModel.fetchRestaurants(viewContext)
+            }
+            else
+            {
+                await locationViewModel.getRestaurants(viewContext)
+            }
+            
         }
         
         .frame(maxHeight: .infinity)
