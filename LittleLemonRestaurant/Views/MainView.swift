@@ -3,16 +3,25 @@ import CoreData
 
 struct MainView: View {
     
+    @Environment(\.managedObjectContext) private var viewContext
+    
     @EnvironmentObject var model: AppViewModel
     @EnvironmentObject var networkMonitor: NetworkMonitor
     
-    @StateObject var locationViewModel = LocationViewModel()
-    @StateObject var dishViewModel = DishViewModel()
-    @StateObject var reservationViewModel = ReservationViewModel()
-    
+    @StateObject var locationViewModel: LocationViewModel
+    @StateObject var dishViewModel: DishViewModel
+    @StateObject var reservationViewModel: ReservationViewModel
     
     @State var tabSelection = 0
     @State var previousTabSelection = -1 // any invalid value
+    
+    
+    init() {
+        // Questi saranno temporaneamente valorizzati, poi sovrascritti in .body
+        _locationViewModel = StateObject(wrappedValue: LocationViewModel(context: PersistenceController.shared.container.viewContext))
+        _dishViewModel = StateObject(wrappedValue: DishViewModel())
+        _reservationViewModel = StateObject(wrappedValue: ReservationViewModel())
+    }
     
     var body: some View {
         ZStack{
@@ -54,7 +63,7 @@ struct MainView: View {
                     .environmentObject(reservationViewModel)
             }
             .environmentObject(model)
-            .onChange(of: networkMonitor.isConnected) { isConnected in
+            .onChange(of: networkMonitor.isConnected) { prevIsconnected, isConnected in
                 let bannerMessage = isConnected ? "Network connection restored" : "Network connection lost"
                 let bannerColor = isConnected ? "green" : "red"
                 model.networkBanner = Banner(message: bannerMessage, color: bannerColor, show: true)
@@ -91,7 +100,7 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(locationViewModel: LocationViewModel(), dishViewModel: DishViewModel(), reservationViewModel: ReservationViewModel(), tabSelection: 0, previousTabSelection: -1)
+        MainView()
             .environmentObject(AppViewModel())
             .environmentObject(NetworkMonitor.shared)
             .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)

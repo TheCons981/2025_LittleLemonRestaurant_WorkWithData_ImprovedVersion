@@ -149,8 +149,9 @@ extension Dish : Identifiable {
     }
     
     
-    class func readAll(_ context:NSManagedObjectContext) -> [Dish]? {
+    class func readAll(_ context:NSManagedObjectContext, searchTerm: String? = nil) -> [Dish]? {
         let request = Dish.request()
+        request.fetchBatchSize = 20
         request.sortDescriptors = [
             NSSortDescriptor(key: "name",
                              ascending: true,
@@ -158,6 +159,16 @@ extension Dish : Identifiable {
                                 #selector(NSString.localizedStandardCompare)
                             )
         ]
+        
+        if let searchTerm = searchTerm, !searchTerm.isEmpty {
+            let predicate1 = NSPredicate(format: "name CONTAINS[cd] %@", searchTerm)
+            let predicate2 = NSPredicate(format: "price CONTAINS[cd] %@", searchTerm)
+            let compoundPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [predicate1, predicate2])
+            
+            request.predicate = compoundPredicate
+        }
+
+        
         do {
             guard let results = try context.fetch(request) as? [Dish],
                   results.count > 0 else { return nil }

@@ -43,20 +43,20 @@ struct LocationsView: View {
                   prompt: "search...")*/
                  }*/
                 
-                List(locationViewModel.filteredRestaurants, id: \.self) { restaurant in
+                List(locationViewModel.locations, id: \.self) { location in
+                    let restaurant = Location.mapToLocationStruct(location: location)
                     NavigationLink(destination: ReservationFormView(restaurant).environmentObject(reservationViewModel)) {
                         LocationView(restaurant)
                     }
                 }
                 .scrollPosition(id: $locationViewModel.scrollPosition)
-                .searchable(text: $locationViewModel.searchText, prompt: "search...")
+                .searchable(text: $locationViewModel.searchText, prompt: "Search...")
                 .refreshable {
-                    await locationViewModel.getRestaurants(viewContext)
+                    await fetchRestaurants()
                 }
                 //.navigationBarTitle("")
                 //.navigationBarHidden(true)
                 .background(NavigationBarNoCollapse())
-                
             }
             
         }
@@ -64,15 +64,14 @@ struct LocationsView: View {
         .onDisappear{
             if model.tabBarChanged { return }
         }
+        .onChange(of: locationViewModel.searchText) {
+            locationViewModel.refresh()
+        }
         .task {
-            if(networkMonitor.isConnected){
-                await locationViewModel.fetchRestaurants(viewContext)
+            if (!locationViewModel.alreadyFetched) {
+                await fetchRestaurants()
+                locationViewModel.alreadyFetched = true
             }
-            else
-            {
-                await locationViewModel.getRestaurants(viewContext)
-            }
-            
         }
         
         .frame(maxHeight: .infinity)
@@ -87,6 +86,16 @@ struct LocationsView: View {
         // makes the list background invisible, default is gray
         .scrollContentBackground(.hidden)
         
+    }
+    
+    private func fetchRestaurants() async {
+        if(networkMonitor.isConnected){
+            await locationViewModel.fetchRestaurants(viewContext)
+        }
+        else
+        {
+            locationViewModel.refresh()
+        }
     }
     
     /*private func buildPredicate() -> NSPredicate {
@@ -105,10 +114,13 @@ struct LocationsView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
+        let context = PersistenceController.shared.container.viewContext
+        
         LocationsView()
             .environmentObject(AppViewModel())
             .environmentObject(ReservationViewModel())
-            .environmentObject(LocationViewModel())
-            .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+            .environmentObject(LocationViewModel(context: context))
+            .environmentObject(NetworkMonitor.shared)
+            .environment(\.managedObjectContext, context)
     }
 }

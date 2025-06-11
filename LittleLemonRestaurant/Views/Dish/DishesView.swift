@@ -2,12 +2,13 @@ import SwiftUI
 import CoreData
 
 struct DishesView: View {
+    
     @Environment(\.managedObjectContext) private var viewContext
     
     @EnvironmentObject var networkMonitor: NetworkMonitor
     @EnvironmentObject var dishViewModel: DishViewModel
     @State private var showAlert = false
-    //@State var searchText = ""
+    
     
     var body: some View {
         
@@ -17,36 +18,44 @@ struct DishesView: View {
                 LittleLemonLogoView()
                 LittleLemonTitleView(title: "Menu")
                 
-                List {
-                    ForEach(dishViewModel.filteredMenuItems, id:\.id) { dish in
-                        DishDetailView(dish)
-                            .onTapGesture {
-                                showAlert.toggle()
-                            }
-                            .id(dish.id)
-                    }
-                }
-                .scrollPosition(id: $dishViewModel.scrollPosition)
-                .searchable(text: $dishViewModel.searchText,prompt: "search...")
-                .refreshable {
-                    await dishViewModel.getDishes(viewContext)
-                }
-                .background(NavigationBarNoCollapse())
-                /*FetchedObjects(
-                 predicate:buildPredicate(),
-                 sortDescriptors: buildSortDescriptors()) {
-                 (dishes: [Dish]) in
-                 List {
-                 ForEach(dishes, id:\.self) { dish in
+                /*List {
+                 ForEach(dishViewModel.menuItems, id:\.id) { dish in
                  DishDetailView(dish)
                  .onTapGesture {
                  showAlert.toggle()
                  }
+                 .id(dish.id)
                  }
                  }
-                 .searchable(text: $searchText,
-                 prompt: "search...")
-                 }*/
+                 .scrollPosition(id: $dishViewModel.scrollPosition)
+                 .searchable(text: $dishViewModel.searchText,prompt: "Search...")
+                 .refreshable {
+                 await fetchdishes()
+                 }
+                 .background(NavigationBarNoCollapse())
+                 */
+                
+                FetchedObjects(
+                    predicate:buildPredicate(),
+                    sortDescriptors: buildSortDescriptors()
+                ) {
+                    (dishes: [Dish]) in
+                    List {
+                        ForEach(dishes, id:\.self) { dish in
+                            let menuItem = Dish.mapToMenuItemStruct(dish: dish)
+                            DishDetailView(menuItem)
+                                .onTapGesture {
+                                    showAlert.toggle()
+                                }
+                        }
+                    }
+                    .scrollPosition(id: $dishViewModel.scrollPosition)
+                    .searchable(text: $dishViewModel.searchText,
+                                prompt: "Search...")
+                    .refreshable {
+                        await fetchdishes()
+                    }
+                }
             }
         }
         // SwiftUI has this space between the title and the list
@@ -66,44 +75,52 @@ struct DishesView: View {
         // makes the list background invisible, default is gray
                .scrollContentBackground(.hidden)
         
+        /*.onChange(of: dishViewModel.searchText) {
+         Task {
+         await dishViewModel.getFilteredDishes(viewContext)
+         }
+         }*/
         // runs when the view appears
                .task {
-                   if(networkMonitor.isConnected){
-                       await dishViewModel.fetchMenuItems(viewContext)
-                   }
-                   else{
-                       await dishViewModel.getDishes(viewContext)
+                   if (!dishViewModel.alreadyFetched) {
+                       await fetchdishes()
+                       dishViewModel.alreadyFetched = true
                    }
                }
-               /*.onChange(of: networkMonitor.isConnected) { isConnected in
-                   Task {
-                       if isConnected {
-                           await dishViewModel.fetchMenuItems(viewContext)
-                       } else {
-                           await dishViewModel.getDishes(viewContext)
-                       }
-                   }
-               }*/
     }
     
-    /*private func buildPredicate() -> NSPredicate {
-     return searchText == "" ?
-     NSPredicate(value: true) :
-     NSPredicate(format: "name CONTAINS[cd] %@", searchText)
-     }
-     
-     private func buildSortDescriptors() -> [NSSortDescriptor] {
-     [NSSortDescriptor(key: "name",
-     ascending: true,
-     selector:
-     #selector(NSString.localizedStandardCompare))]
-     }*/
+    private func fetchdishes() async {
+        if(networkMonitor.isConnected){
+            await dishViewModel.fetchMenuItems(viewContext)
+        }
+    }
+    
+    private func buildPredicate() -> NSPredicate {
+        
+        if !dishViewModel.searchText.isEmpty {
+            let predicate1 = NSPredicate(format: "name CONTAINS[cd] %@", dishViewModel.searchText)
+            let predicate2 = NSPredicate(format: "price CONTAINS[cd] %@", dishViewModel.searchText)
+            let compoundPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [predicate1, predicate2])
+            return compoundPredicate
+        }
+        else{
+            return NSPredicate(value: true)
+        }
+    }
+    
+    private func buildSortDescriptors() -> [NSSortDescriptor] {
+        [NSSortDescriptor(key: "name",
+                          ascending: true,
+                          selector:
+                            #selector(NSString.localizedStandardCompare))]
+    }
 }
 
 struct DishesView_Previews: PreviewProvider {
     static var previews: some View {
         DishesView()
             .environmentObject(DishViewModel())
+            .environmentObject(NetworkMonitor.shared)
             .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
     }
 }

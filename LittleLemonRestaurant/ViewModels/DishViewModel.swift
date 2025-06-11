@@ -5,9 +5,9 @@ import CoreData
 @MainActor
 class DishViewModel: ObservableObject {
     
-    @Published var menuItems = [MenuItemStruct]()
     @Published var searchText = "";
     @Published var scrollPosition: Int? = nil
+    @Published var alreadyFetched: Bool = false
     
     func fetchMenuItems(_ coreDataContext:NSManagedObjectContext) async {
         let url = URL(string: ApiConst.littleLemonMenuUrl)!
@@ -16,11 +16,13 @@ class DishViewModel: ObservableObject {
         do {
             let (data, _) = try await urlSession.data(from: url)
             let fullMenu = try JSONDecoder().decode(MenuStruct.self, from: data)
-            menuItems = fullMenu.menu.sorted { $0.title < $1.title }
+            //menuItems = fullMenu.menu.sorted { $0.title < $1.title }
             
             // populate Core Data
             //Dish.deleteAll(coreDataContext)
-            Dish.createDishesFrom(menuItems:menuItems, coreDataContext)
+            Dish.saveAll(menuItems: fullMenu.menu, coreDataContext)
+            
+            //await getFilteredDishes(coreDataContext)
         }
         catch {
             print(error)
@@ -52,21 +54,6 @@ class DishViewModel: ObservableObject {
          
          }
          task.resume()*/
-    }
-    
-    var filteredMenuItems: [MenuItemStruct] {
-        if searchText.isEmpty {
-            return menuItems
-        } else {
-            return menuItems.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
-        }
-    }
-    
-    func getDishes(_ coreDataContext:NSManagedObjectContext) async -> Void {
-        let dishes = Dish.readAll(coreDataContext)
-        menuItems = dishes?.map { dish in
-            MenuItemStruct(id: dish.objectID.hashValue, title: dish.name ?? "", price: String(dish.price), size: dish.size)
-        } ?? []
     }
 }
 

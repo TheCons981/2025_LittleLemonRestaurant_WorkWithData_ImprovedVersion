@@ -43,10 +43,16 @@ extension Location {
         }
     }
     
-    public static func mapToRestaurantLocationObject(location: Location) -> LocationStruct {
+    public static func mapToLocationStruct(location: Location) -> LocationStruct {
         let restaurantLocation = LocationStruct(city: location.city!, neighborhood: location.neighborhood!, phoneNumber: location.phoneNumber!);
         
         return restaurantLocation;
     }
+    
+    // Questo init viene chiamato ogni volta che Core Data crea un oggetto "materializzato"
+       public override func awakeFromFetch() {
+           super.awakeFromFetch()
+           print("[LOG] Location materializzata: \(city ?? "?") - \(phoneNumber ?? "?")")
+       }
 
 }

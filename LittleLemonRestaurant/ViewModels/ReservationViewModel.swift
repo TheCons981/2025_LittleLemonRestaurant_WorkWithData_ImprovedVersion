@@ -18,7 +18,7 @@ class ReservationViewModel: ObservableObject {
         let dbReservations = Reservation.readAll(coreDataContext)
         if let reservations = dbReservations {
             reservation = reservations.first.map { res in
-                let location = Location.mapToRestaurantLocationObject(location: res.fromLocation!)
+                let location = Location.mapToLocationStruct(location: res.fromLocation!)
                 return ReservationStruct(restaurant: location, customerName: res.customerName!, customerEmail: res.customerEmail!, customerPhoneNumber: res.customerPhoneNumber!, reservationDate: res.reservationDate!, party: Int(res.party), specialRequests: res.reservationNotes!)
             } ?? ReservationStruct()
         }

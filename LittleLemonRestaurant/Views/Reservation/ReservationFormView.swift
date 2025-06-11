@@ -53,7 +53,7 @@ struct ReservationFormView: View {
                               value: $party,
                               formatter: NumberFormatter())
                     .keyboardType(.numberPad)
-                    .onChange(of: party) { value in
+                    .onChange(of: party) { oldValue, value in
                         if value == 0 { party = 1}
                     }
                 }
@@ -150,7 +150,7 @@ struct ReservationFormView: View {
         // the original color is gray
         .scrollContentBackground(.hidden)
         
-        .onChange(of: mustChangeReservation) { _ in
+        .onChange(of: mustChangeReservation) {
             Task {
                 await reservationViewModel.saveReservation(viewContext, reservationRequest: temporaryReservation)
             }

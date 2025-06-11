@@ -9,146 +9,148 @@ struct ReservationView: View {
         // you can create variables inside body
         // to help you reduce code repetition
         let restaurant = reservationViewModel.reservation.restaurant
-        
-        ScrollView {
-            VStack {
-                LittleLemonLogoView()
-                LittleLemonTitleView(title: "Your Reservation")
-            }
+        NavigationView {
             
-            VStack {
+            
+            ScrollView {
+                VStack {
+                    LittleLemonLogoView()
+                    LittleLemonTitleView(title: "Your Reservation")
+                }
                 
-                
-                if restaurant.city.isEmpty {
-                    
-                    VStack {
-                        // if city is empty no reservation has been
-                        // selected yet, so, show the following message
-                        Text("No reservation yet")
-                            .foregroundColor(.gray)
-
-                    }
-                    .frame(maxHeight:.infinity)
+                VStack {
                     
                     
-                } else {
-                    
-                    HStack {
-                        VStack (alignment: .leading) {
-                            Text("Restaurant")
-                                .font(.subheadline)
-                                .padding(.bottom, 5)
-                            LocationView(restaurant)
+                    if restaurant.city.isEmpty {
+                        
+                        VStack {
+                            // if city is empty no reservation has been
+                            // selected yet, so, show the following message
+                            Text("No reservation yet")
+                                .foregroundColor(.gray)
+                            
                         }
-                        Spacer()
-                    }
-                    .frame(maxWidth:.infinity)
-                    .padding(.bottom, 20)
-                    
-                    Divider()
+                        .frame(maxHeight:.infinity)
+                        
+                        
+                    } else {
+                        
+                        HStack {
+                            VStack (alignment: .leading) {
+                                Text("Restaurant")
+                                    .font(.subheadline)
+                                    .padding(.bottom, 5)
+                                LocationView(restaurant)
+                            }
+                            Spacer()
+                        }
+                        .frame(maxWidth:.infinity)
                         .padding(.bottom, 20)
-                    
-                    
-                    VStack {
-                        HStack {
-                            Text("Name: ")
-                                .foregroundColor(.gray)
-                                .font(.subheadline)
-                            
-                            Text(reservationViewModel.reservation.customerName)
-                            Spacer()
-                        }
                         
-                        HStack {
-                            Text("E-mail: ")
-                                .foregroundColor(.gray)
-                                .font(.subheadline)
-                            
-                            Text(reservationViewModel.reservation.customerEmail)
-                            Spacer()
-                        }
+                        Divider()
+                            .padding(.bottom, 20)
                         
-                        HStack {
-                            Text("Phone: ")
-                                .foregroundColor(.gray)
-                                .font(.subheadline)
-                            
-                            Text(reservationViewModel.reservation.customerPhoneNumber)
-                            Spacer()
-                        }
                         
-                    }
-                    .padding(.bottom, 20)
-                    
-                    
-                    HStack {
-                        Text("Party: ")
-                            .foregroundColor(.gray)
-                        
-                            .font(.subheadline)
-                        
-                        Text("\(reservationViewModel.reservation.party)")
-                        Spacer()
-                    }
-                    .padding(.bottom, 20)
-                    
-                    VStack {
-                        HStack {
-                            Text("Date: ")
-                                .foregroundColor(.gray)
-                                .font(.subheadline)
-                            
-                            Text(reservationViewModel.reservation.reservationDate, style: .date)
-                            Spacer()
-                        }
-                        
-                        HStack {
-                            Text("Time: ")
-                                .foregroundColor(.gray)
-                                .font(.subheadline)
-                            
-                            Text(reservationViewModel.reservation.reservationDate, style: .time)
-                            Spacer()
-                        }
-                    }
-                    .padding(.bottom, 20)
-                    
-                    HStack {
-                        VStack (alignment: .leading) {
-                            Text("Special Requests:")
-                                .foregroundColor(.gray)
-                                .font(.subheadline)
-                            Text(reservationViewModel.reservation.specialRequests)
-                        }
-                        Spacer()
-                    }
-                    .frame(maxWidth:.infinity)
-                    .padding(.bottom, 20)
-                    
-                    
-                    HStack {
-                        Button(role: .destructive) {
-                            Task {
-                                await reservationViewModel.deleteReservation(viewContext)
+                        VStack {
+                            HStack {
+                                Text("Name: ")
+                                    .foregroundColor(.gray)
+                                    .font(.subheadline)
+                                
+                                Text(reservationViewModel.reservation.customerName)
+                                Spacer()
                             }
                             
-                        } label: {
-                            Text("Delete reservation")
+                            HStack {
+                                Text("E-mail: ")
+                                    .foregroundColor(.gray)
+                                    .font(.subheadline)
                                 
+                                Text(reservationViewModel.reservation.customerEmail)
+                                Spacer()
+                            }
+                            
+                            HStack {
+                                Text("Phone: ")
+                                    .foregroundColor(.gray)
+                                    .font(.subheadline)
+                                
+                                Text(reservationViewModel.reservation.customerPhoneNumber)
+                                Spacer()
+                            }
+                            
                         }
-                        .buttonStyle(.borderedProminent)
-                        .cornerRadius(20)
-                        Spacer()
+                        .padding(.bottom, 20)
+                        
+                        
+                        HStack {
+                            Text("Party: ")
+                                .foregroundColor(.gray)
+                            
+                                .font(.subheadline)
+                            
+                            Text("\(reservationViewModel.reservation.party)")
+                            Spacer()
+                        }
+                        .padding(.bottom, 20)
+                        
+                        VStack {
+                            HStack {
+                                Text("Date: ")
+                                    .foregroundColor(.gray)
+                                    .font(.subheadline)
+                                
+                                Text(reservationViewModel.reservation.reservationDate, style: .date)
+                                Spacer()
+                            }
+                            
+                            HStack {
+                                Text("Time: ")
+                                    .foregroundColor(.gray)
+                                    .font(.subheadline)
+                                
+                                Text(reservationViewModel.reservation.reservationDate, style: .time)
+                                Spacer()
+                            }
+                        }
+                        .padding(.bottom, 20)
+                        
+                        HStack {
+                            VStack (alignment: .leading) {
+                                Text("Special Requests:")
+                                    .foregroundColor(.gray)
+                                    .font(.subheadline)
+                                Text(reservationViewModel.reservation.specialRequests)
+                            }
+                            Spacer()
+                        }
+                        .frame(maxWidth:.infinity)
+                        .padding(.bottom, 20)
+                        
+                        
+                        HStack {
+                            Button(role: .destructive) {
+                                Task {
+                                    await reservationViewModel.deleteReservation(viewContext)
+                                }
+                                
+                            } label: {
+                                Text("Delete reservation")
+                                
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .cornerRadius(20)
+                            Spacer()
+                        }
+                        
                     }
-                    
                 }
+                .padding()
             }
-            .padding()
         }
         .task {
             await reservationViewModel.getReservations(viewContext)
         }
-        
     }
 }
 

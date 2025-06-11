@@ -1,13 +1,21 @@
 import Foundation
 import CoreData
 
-
-@MainActor
-class LocationViewModel: ObservableObject {
+class LocationViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDelegate {
     
-    @Published var restaurants = [LocationStruct]()
+    @Published var locations = [Location]()
     @Published var searchText = "";
     @Published var scrollPosition: Int? = nil
+    @Published var alreadyFetched: Bool = false
+    
+    private var context: NSManagedObjectContext
+    private var fetchedResultsController: NSFetchedResultsController<Location>!
+    
+    init(context: NSManagedObjectContext) {
+        self.context = context
+        super.init()
+        setupFetchedResultsController()
+    }
     
     func fetchRestaurants(_ coreDataContext:NSManagedObjectContext) async {
         
@@ -17,36 +25,49 @@ class LocationViewModel: ObservableObject {
         do {
             let (data, _) = try await urlSession.data(from: url)
             let fetchedRestaurants = try JSONDecoder().decode([LocationStruct].self, from: data)
-            restaurants = fetchedRestaurants.sorted { $0.city < $1.city }
+            //restaurants = fetchedRestaurants.sorted { $0.city < $1.city }
             
             // populate Core Data. the method add only new elements.
             //Location.deleteAll(coreDataContext)
-            Location.saveAll(locations: restaurants, coreDataContext)
-            
+            Location.saveAll(locations: fetchedRestaurants, coreDataContext)
+            refresh();
         }
         catch {
             print(error)
         }
     }
     
-    func getRestaurants(_ coreDataContext:NSManagedObjectContext) async -> Void {
-        let locations = Location.readAll(coreDataContext)
-        restaurants = locations?.map { location in
-            Location.mapToRestaurantLocationObject(location: location)
-        } ?? []
-    }
-    
-    var filteredRestaurants: [LocationStruct] {
-        if searchText.isEmpty {
-            return restaurants
-        } else {
-            return restaurants.filter { $0.city.localizedCaseInsensitiveContains(searchText) || $0.neighborhood.localizedCaseInsensitiveContains(searchText) ||
-                $0.phoneNumber.localizedCaseInsensitiveContains(searchText)
-            }
+    func setupFetchedResultsController() {
+        
+        let request = Location.getBatchSearchFetchRequest(searchTerm: searchText)
+        
+        fetchedResultsController = NSFetchedResultsController(
+            fetchRequest: request,
+            managedObjectContext: context,
+            sectionNameKeyPath: nil,
+            cacheName: nil
+        )
+        fetchedResultsController.delegate = self
+
+        do {
+            try fetchedResultsController.performFetch()
+            DispatchQueue.main.async {
+                self.locations = self.fetchedResultsController.fetchedObjects ?? []
+                }
+            
+        } catch {
+            print("Fetch error: \(error)")
         }
     }
+
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        if let locs = controller.fetchedObjects as? [Location] {
+            self.locations = locs
+        }
+    }
+
+    func refresh() {
+        setupFetchedResultsController()
+    }
+   
 }
-
-
-
-

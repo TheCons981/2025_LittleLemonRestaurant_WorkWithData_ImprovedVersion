@@ -9,7 +9,7 @@ import CoreData
 
 extension Dish {
     
-    static func createDishesFrom(menuItems:[MenuItemStruct],
+    static func saveAll(menuItems:[MenuItemStruct],
                                  _ context:NSManagedObjectContext) {
         for menuItem in menuItems {
             if exists(name: menuItem.title, context) ?? false {
@@ -43,6 +43,17 @@ extension Dish {
             print(error.localizedDescription)
             return false
         }
+    }
+    
+    static func mapToMenuItemStruct(dish: Dish) -> MenuItemStruct {
+        let menuItem = MenuItemStruct(id: dish.objectID.hashValue, title: dish.name ?? "", price: String(dish.price), size: dish.size)
+        
+        return menuItem;
+    }
+    
+    public override func awakeFromFetch() {
+        super.awakeFromFetch()
+        print("[LOG] Dish materializzato: \(name ?? "?") - \(price)")
     }
     
 }

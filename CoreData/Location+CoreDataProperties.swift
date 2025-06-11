@@ -19,8 +19,8 @@ extension Location {
 
 extension Location : Identifiable {
     
-    static func request() -> NSFetchRequest<NSFetchRequestResult> {
-        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: String(describing: Self.self))
+    static func request() -> NSFetchRequest<Location> {
+        let request: NSFetchRequest<Location> = NSFetchRequest(entityName: String(describing: Self.self))
         request.returnsDistinctResults = true
         request.returnsObjectsAsFaults = true
         return request
@@ -74,9 +74,9 @@ extension Location : Identifiable {
         }
     }
     
-    
-    class func readAll(_ context:NSManagedObjectContext) -> [Location]? {
+    class func readAll(_ context:NSManagedObjectContext, searchTerm: String? = nil) -> [Location]? {
         let request = Location.request()
+        
         request.sortDescriptors = [
             NSSortDescriptor(key: "city",
                              ascending: true,
@@ -85,6 +85,15 @@ extension Location : Identifiable {
                             )
         ]
         
+        if let searchTerm = searchTerm, !searchTerm.isEmpty {
+            let predicate1 = NSPredicate(format: "city CONTAINS[cd] %@", searchTerm)
+            let predicate2 = NSPredicate(format: "phoneNumber CONTAINS[cd] %@", searchTerm)
+            let predicate3 = NSPredicate(format: "neighborhood CONTAINS[cd] %@", searchTerm)
+            let compoundPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [predicate1, predicate2, predicate3])
+            
+            request.predicate = compoundPredicate
+        }
+
         do {
             guard let results = try context.fetch(request) as? [Location],
                   results.count > 0 else { return nil }
@@ -120,6 +129,29 @@ extension Location : Identifiable {
             print(error.localizedDescription)
             return nil
         }
+    }
+    
+    static func getBatchSearchFetchRequest(searchTerm: String? = nil) -> NSFetchRequest<Location> {
+        let request = Location.request()
+        request.fetchBatchSize = 20
+        request.sortDescriptors = [
+            NSSortDescriptor(key: "city",
+                             ascending: true,
+                             selector:
+                                #selector(NSString.localizedStandardCompare)
+                            )
+        ]
+        
+        if let searchTerm = searchTerm, !searchTerm.isEmpty {
+            let predicate1 = NSPredicate(format: "city CONTAINS[cd] %@", searchTerm)
+            let predicate2 = NSPredicate(format: "phoneNumber CONTAINS[cd] %@", searchTerm)
+            let predicate3 = NSPredicate(format: "neighborhood CONTAINS[cd] %@", searchTerm)
+            let compoundPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [predicate1, predicate2, predicate3])
+            
+            request.predicate = compoundPredicate
+        }
+
+        return request;
     }
     
 }
